@@ -11,7 +11,7 @@ export const getCurrentWeather = async (
 };
 
 export const getForecastWeather = async (
-  cityId: string
+  cityId: number
 ): Promise<TGETForecast> => {
   const res = await api.get(
     `/forecast?id=${cityId}&appid=${process.env.NEXT_PUBLIC_API_KEY}&units=metric`

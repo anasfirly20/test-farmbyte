@@ -5,7 +5,10 @@ import { Button } from "@nextui-org/button";
 import snowy1 from "../../public/animated/snowy-3.svg";
 import Image from "next/image";
 
-import { getCurrentWeather } from "../../api/routes/openweather";
+import {
+  getCurrentWeather,
+  getForecastWeather,
+} from "../../api/routes/openweather";
 import { useState } from "react";
 import { TGETCurrentWeather } from "@/types/types";
 
@@ -20,6 +23,7 @@ export default function Home() {
       const res = await getCurrentWeather(string);
       setData(res);
       console.log(res);
+      getForecast(res?.id);
       setIsLoading(false);
     } catch (error) {
       console.log(error);
@@ -30,6 +34,15 @@ export default function Home() {
   const handleSearch = () => {
     if (searchString) {
       getWeather(searchString);
+    }
+  };
+
+  const getForecast = async (cityId: number) => {
+    try {
+      const res = await getForecastWeather(cityId);
+      console.log("RES 2>>", res);
+    } catch (error) {
+      console.log(error);
     }
   };
 
