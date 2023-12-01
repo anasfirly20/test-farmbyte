@@ -1,16 +1,26 @@
 "use client";
+
+// Next ui
 import { Input } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
 
+// Assets
 import snowy1 from "../../public/animated/snowy-3.svg";
-import Image from "next/image";
 
+// Components
+import Empty from "@/components/Empty";
+
+// Api
 import {
   getCurrentWeather,
   getForecastWeather,
 } from "../../api/routes/openweather";
 import { useState } from "react";
 import { TGETCurrentWeather } from "@/types/types";
+
+// Miscellaneous
+import moment from "moment";
+import Image from "next/image";
 
 export default function Home() {
   const [data, setData] = useState<TGETCurrentWeather>();
@@ -37,6 +47,14 @@ export default function Home() {
     }
   };
 
+  const handleKeyDown = (
+    e: React.KeyboardEvent<HTMLInputElement> | KeyboardEvent
+  ) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
   const getForecast = async (cityId: number) => {
     try {
       const res = await getForecastWeather(cityId);
@@ -57,11 +75,7 @@ export default function Home() {
           radius="md"
           className="w-full lg:w-[89%]"
           onChange={(e) => setSearchString(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              handleSearch();
-            }
-          }}
+          onKeyDown={(e) => handleKeyDown(e)}
         />
         <Button
           color="primary"
@@ -77,40 +91,51 @@ export default function Home() {
           Search
         </Button>
       </section>
-      <section className="">
-        <div className="flex items-center my-6">
-          <Image src={snowy1} alt="snowy" width={120} height={120} />
-          <h1 className="text-sky-600">{data?.name}</h1>
-        </div>
-        <p className="text-gray-400">Thursday 8:18 AM</p>
-        <h2 className="flex items-start text-sky-600 my-5">
-          {data?.main?.temp && Math.floor(data?.main?.temp)}{" "}
-          <span className="text-sm">&deg;C</span>
-        </h2>
-        <p className="text-gray-500">Wind: {data?.wind?.speed} mph</p>
-        <p className="text-gray-500">Humidity: {data?.main?.humidity}%</p>
-      </section>
-      <hr className="border-b my-6" />
-      <section className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-y-20 mt-10">
-        {Array(7)
-          ?.fill(7)
-          ?.map((_, index) => {
-            return (
-              <div
-                key={index}
-                className="flex flex-col justify-center items-center gap-1"
-              >
-                <h5>Thu</h5>
-                <Image src={snowy1} alt="snowy" width={60} height={60} />
-                <div className="flex gap-2">
-                  <p>58&deg;</p>
-                  <div className="border-l-2 border-gray-400" />
-                  <p className="text-gray-400">44&deg;</p>
-                </div>
-              </div>
-            );
-          })}
-      </section>
+      {data ? (
+        <>
+          <section>
+            <div className="flex items-center mt-6">
+              <Image src={snowy1} alt="snowy" width={120} height={120} />
+              <h1 className="text-sky-600">{data?.name}</h1>
+            </div>
+            <p className="text-gray-400">
+              {data?.dt && moment.unix(data?.dt).format("MMMM D, YYYY h:mm A")}
+              {/* {data?.dt && moment.unix(data?.dt).format("MMMM D, YYYY")} */}
+            </p>
+            <h2 className="flex items-start text-sky-600 my-5">
+              {data?.main?.temp && Math.floor(data?.main?.temp)}{" "}
+              <span className="text-sm">&deg;C</span>
+            </h2>
+            <p>{data?.weather?.[0]?.main}</p>
+            <p className="text-base">{data?.weather?.[0]?.description}</p>
+            <p className="text-gray-500">Wind: {data?.wind?.speed} m/s</p>
+            <p className="text-gray-500">Humidity: {data?.main?.humidity}%</p>
+          </section>
+          <hr className="border-b my-6" />
+          <section className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-y-20 mt-10">
+            {Array(7)
+              ?.fill(7)
+              ?.map((_, index) => {
+                return (
+                  <div
+                    key={index}
+                    className="flex flex-col justify-center items-center gap-1"
+                  >
+                    <h5>Thu</h5>
+                    <Image src={snowy1} alt="snowy" width={60} height={60} />
+                    <div className="flex gap-2">
+                      <p>58&deg;</p>
+                      <div className="border-l-2 border-gray-400" />
+                      <p className="text-gray-400">44&deg;</p>
+                    </div>
+                  </div>
+                );
+              })}
+          </section>
+        </>
+      ) : (
+        <Empty />
+      )}
       <p className="mt-10 lg:mt-36 text-center text-gray-500">
         Created with Next Js and TailwindCSS
       </p>
