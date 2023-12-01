@@ -1,10 +1,26 @@
+"use client";
 import { Input } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
 
 import snowy1 from "../../public/animated/snowy-3.svg";
 import Image from "next/image";
 
+import { getCurrentWeather } from "../../api/routes/openweather";
+import { useState } from "react";
+
 export default function Home() {
+  const [data, setData] = useState();
+
+  const getWeather = async () => {
+    try {
+      const res = await getCurrentWeather("Jakarta");
+      setData(res);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <section className="py-longer px-longer h-[100vh]">
       <section className="flex items-center justify-between flex-wrap gap-y-3">
@@ -21,6 +37,9 @@ export default function Home() {
           size="lg"
           radius="md"
           className="w-full lg:w-[10%] bg-sky-600"
+          onClick={() => {
+            getWeather();
+          }}
         >
           Search
         </Button>
@@ -28,7 +47,7 @@ export default function Home() {
       <section className="">
         <div className="flex items-center my-6">
           <Image src={snowy1} alt="snowy" width={120} height={120} />
-          <h1 className="text-sky-600">Kazan</h1>
+          <h1 className="text-sky-600">{data?.name}</h1>
         </div>
         <p className="text-gray-400">Thursday 8:18 AM</p>
         <h2 className="flex items-start text-sky-600 my-5">
@@ -58,7 +77,7 @@ export default function Home() {
             );
           })}
       </section>
-      <p className="mt-36 text-center text-gray-500">
+      <p className="mt-10 lg:mt-36 text-center text-gray-500">
         Created with Next Js and TailwindCSS
       </p>
     </section>
