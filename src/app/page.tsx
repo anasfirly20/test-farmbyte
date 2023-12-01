@@ -19,6 +19,7 @@ import moment from "moment";
 import Image from "next/image";
 import { getWeatherIcon } from "@/lib/helpers/utils";
 import { TGETCurrentWeather, TList } from "@/types/types";
+import Error from "@/components/Error";
 
 export default function Home() {
   const [dataCurrentWeather, setDataCurrentWeather] =
@@ -26,6 +27,7 @@ export default function Home() {
   const [dataForecast, setDataForecast] = useState<TList[]>([]);
   const [searchString, setSearchString] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
 
   const getWeather = async (string: string) => {
     try {
@@ -37,6 +39,7 @@ export default function Home() {
     } catch (error) {
       console.log(error);
       setIsLoading(false);
+      setIsError(true);
     }
   };
 
@@ -64,7 +67,7 @@ export default function Home() {
   };
 
   return (
-    <section className="py-longer px-longer h-[95vh]">
+    <section className="py-longer px-longer lg:h-[95vh]">
       <section className="flex items-center justify-between flex-wrap gap-y-3">
         <Input
           type="text"
@@ -90,7 +93,9 @@ export default function Home() {
           Search
         </Button>
       </section>
-      {dataCurrentWeather ? (
+      {isError ? (
+        <Error />
+      ) : dataCurrentWeather ? (
         <>
           <section>
             <div className="flex items-center mt-6">
@@ -128,7 +133,25 @@ export default function Home() {
             </p>
           </section>
           <hr className="border-b my-6" />
-          <section className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-y-20 mt-10">
+          <section className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-y-20 mt-10">
+            <div className="flex flex-col justify-center items-center gap-1">
+              <h5>Now</h5>
+              <Image
+                priority
+                src={
+                  dataCurrentWeather?.weather?.[0]?.icon &&
+                  getWeatherIcon(dataCurrentWeather?.weather?.[0]?.icon)
+                }
+                alt="Weather's icon"
+                width={60}
+                height={60}
+              />
+              <p>
+                {dataCurrentWeather?.main?.temp &&
+                  Math.floor(dataCurrentWeather?.main?.temp)}
+                &deg;
+              </p>
+            </div>
             {dataForecast?.map((data, index: number) => {
               return (
                 <div
