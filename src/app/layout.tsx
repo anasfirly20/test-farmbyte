@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="light">
       <body className={montserrat.className}>
-        <link rel="icon" href="/animated/weather.svg" sizes="any" />
+        <link rel="icon" href="/weather.svg" sizes="any" />
         <Providers>
           <main>{children}</main>
           <Footer />

@@ -12,13 +12,13 @@ import {
   getCurrentWeather,
   getForecastWeather,
 } from "../../api/routes/openweather";
-import { useState } from "react";
-import { TGETCurrentWeather, TList } from "@/types/types";
 
 // Miscellaneous
+import { useState } from "react";
 import moment from "moment";
 import Image from "next/image";
 import { getWeatherIcon } from "@/lib/helpers/utils";
+import { TGETCurrentWeather, TList } from "@/types/types";
 
 export default function Home() {
   const [dataCurrentWeather, setDataCurrentWeather] =
@@ -32,7 +32,6 @@ export default function Home() {
       setIsLoading(true);
       const res = await getCurrentWeather(string);
       setDataCurrentWeather(res);
-      console.log(res);
       getForecast(res?.id);
       setIsLoading(false);
     } catch (error) {
@@ -59,7 +58,6 @@ export default function Home() {
     try {
       const res = await getForecastWeather(cityId);
       setDataForecast(res?.list);
-      console.log("RES 2>>", res);
     } catch (error) {
       console.log(error);
     }
