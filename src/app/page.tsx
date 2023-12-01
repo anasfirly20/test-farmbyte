@@ -5,7 +5,7 @@ import { Input } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
 
 // Assets
-import snowy1 from "../../public/animated/snowy-3.svg";
+import snowy from "../../public/animated/snowy-3.svg";
 
 // Components
 import Empty from "@/components/Empty";
@@ -98,7 +98,7 @@ export default function Home() {
         <>
           <section>
             <div className="flex items-center mt-6">
-              <Image src={snowy1} alt="snowy" width={120} height={120} />
+              <Image src={snowy} alt="snowy" width={120} height={120} />
               <h1 className="text-sky-600">{dataCurrentWeather?.name}</h1>
             </div>
             <p className="text-gray-400">
@@ -135,13 +135,8 @@ export default function Home() {
                   className="flex flex-col justify-center items-center gap-1"
                 >
                   <h5>{data?.dt && moment.unix(data?.dt).format("HH:mm")}</h5>
-                  <Image src={snowy1} alt="snowy" width={60} height={60} />
+                  <Image src={snowy} alt="snowy" width={60} height={60} />
                   <p>{data?.main?.temp && Math.floor(data?.main?.temp)}&deg;</p>
-                  {/* <div className="flex gap-2">
-                      <p>58&deg;</p>
-                      <div className="border-l-2 border-gray-400" />
-                      <p className="text-gray-400">44&deg;</p>
-                    </div> */}
                 </div>
               );
             })}

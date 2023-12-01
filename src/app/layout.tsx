@@ -21,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="light">
       <body className={montserrat.className}>
+        <link rel="icon" href="/animated/cloudy-day-3.svg" sizes="any" />
         <Providers>
           <main>{children}</main>
           <Footer />
