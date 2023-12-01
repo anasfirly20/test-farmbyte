@@ -135,7 +135,13 @@ export default function Home() {
                   className="flex flex-col justify-center items-center gap-1"
                 >
                   <h5>{data?.dt && moment.unix(data?.dt).format("HH:mm")}</h5>
-                  <Image src={snowy} alt="snowy" width={60} height={60} />
+                  <Image
+                    priority
+                    src={snowy}
+                    alt="snowy"
+                    width={60}
+                    height={60}
+                  />
                   <p>{data?.main?.temp && Math.floor(data?.main?.temp)}&deg;</p>
                 </div>
               );

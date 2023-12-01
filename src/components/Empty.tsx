@@ -8,7 +8,7 @@ export default function Empty() {
         Stay ahead of the weather! <br /> Find the current conditions in any
         city with a quick search.
       </h4>
-      <Image src={emptySvg} height={600} width={600} alt="empty svg" />
+      <Image priority src={emptySvg} width={600} height={600} alt="empty svg" />
     </section>
   );
 }
