@@ -16,14 +16,16 @@ import {
   getForecastWeather,
 } from "../../api/routes/openweather";
 import { useState } from "react";
-import { TGETCurrentWeather } from "@/types/types";
+import { TGETCurrentWeather, TList } from "@/types/types";
 
 // Miscellaneous
 import moment from "moment";
 import Image from "next/image";
 
 export default function Home() {
-  const [data, setData] = useState<TGETCurrentWeather>();
+  const [dataCurrentWeather, setDataCurrentWeather] =
+    useState<TGETCurrentWeather>();
+  const [dataForecast, setDataForecast] = useState<TList[]>([]);
   const [searchString, setSearchString] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -31,7 +33,7 @@ export default function Home() {
     try {
       setIsLoading(true);
       const res = await getCurrentWeather(string);
-      setData(res);
+      setDataCurrentWeather(res);
       console.log(res);
       getForecast(res?.id);
       setIsLoading(false);
@@ -58,6 +60,7 @@ export default function Home() {
   const getForecast = async (cityId: number) => {
     try {
       const res = await getForecastWeather(cityId);
+      setDataForecast(res?.list);
       console.log("RES 2>>", res);
     } catch (error) {
       console.log(error);
@@ -65,7 +68,7 @@ export default function Home() {
   };
 
   return (
-    <section className="py-longer px-longer h-[100vh]">
+    <section className="py-longer px-longer h-[95vh]">
       <section className="flex items-center justify-between flex-wrap gap-y-3">
         <Input
           type="text"
@@ -91,54 +94,62 @@ export default function Home() {
           Search
         </Button>
       </section>
-      {data ? (
+      {dataCurrentWeather ? (
         <>
           <section>
             <div className="flex items-center mt-6">
               <Image src={snowy1} alt="snowy" width={120} height={120} />
-              <h1 className="text-sky-600">{data?.name}</h1>
+              <h1 className="text-sky-600">{dataCurrentWeather?.name}</h1>
             </div>
             <p className="text-gray-400">
-              {data?.dt && moment.unix(data?.dt).format("MMMM D, YYYY h:mm A")}
-              {/* {data?.dt && moment.unix(data?.dt).format("MMMM D, YYYY")} */}
+              {dataCurrentWeather?.dt &&
+                moment
+                  .unix(dataCurrentWeather?.dt)
+                  .format("dddd, D MMMM YYYY, HH:mm")}
+              {/* {dataCurrentWeather?.dt && moment.unix(dataCurrentWeather?.dt).format("MMMM D, YYYY")} */}
             </p>
-            <h2 className="flex items-start text-sky-600 my-5">
-              {data?.main?.temp && Math.floor(data?.main?.temp)}{" "}
+            <h2 className="flex items-start text-sky-600 mt-4">
+              {dataCurrentWeather?.main?.temp &&
+                Math.floor(dataCurrentWeather?.main?.temp)}{" "}
               <span className="text-sm">&deg;C</span>
             </h2>
-            <p>{data?.weather?.[0]?.main}</p>
-            <p className="text-base">{data?.weather?.[0]?.description}</p>
-            <p className="text-gray-500">Wind: {data?.wind?.speed} m/s</p>
-            <p className="text-gray-500">Humidity: {data?.main?.humidity}%</p>
+            <p className="text-base text-gray-500">
+              {dataCurrentWeather?.weather?.[0]?.main}
+            </p>
+            <p className="text-base text-gray-500">
+              {dataCurrentWeather?.weather?.[0]?.description}
+            </p>
+            <p className="text-gray-500 mt-4">
+              Wind: {dataCurrentWeather?.wind?.speed} m/s
+            </p>
+            <p className="text-gray-500">
+              Humidity: {dataCurrentWeather?.main?.humidity}%
+            </p>
           </section>
           <hr className="border-b my-6" />
           <section className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-y-20 mt-10">
-            {Array(7)
-              ?.fill(7)
-              ?.map((_, index) => {
-                return (
-                  <div
-                    key={index}
-                    className="flex flex-col justify-center items-center gap-1"
-                  >
-                    <h5>Thu</h5>
-                    <Image src={snowy1} alt="snowy" width={60} height={60} />
-                    <div className="flex gap-2">
+            {dataForecast?.map((data, index: number) => {
+              return (
+                <div
+                  key={index}
+                  className="flex flex-col justify-center items-center gap-1"
+                >
+                  <h5>{data?.dt && moment.unix(data?.dt).format("HH:mm")}</h5>
+                  <Image src={snowy1} alt="snowy" width={60} height={60} />
+                  <p>{data?.main?.temp && Math.floor(data?.main?.temp)}&deg;</p>
+                  {/* <div className="flex gap-2">
                       <p>58&deg;</p>
                       <div className="border-l-2 border-gray-400" />
                       <p className="text-gray-400">44&deg;</p>
-                    </div>
-                  </div>
-                );
-              })}
+                    </div> */}
+                </div>
+              );
+            })}
           </section>
         </>
       ) : (
         <Empty />
       )}
-      <p className="mt-10 lg:mt-36 text-center text-gray-500">
-        Created with Next Js and TailwindCSS
-      </p>
     </section>
   );
 }

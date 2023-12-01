@@ -1,12 +1,9 @@
 import type { Metadata } from "next";
-import { Poppins, Montserrat } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
+import Footer from "@/components/Footer";
 
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-});
 const montserrat = Montserrat({
   subsets: ["latin"],
 });
@@ -26,6 +23,7 @@ export default function RootLayout({
       <body className={montserrat.className}>
         <Providers>
           <main>{children}</main>
+          <Footer />
         </Providers>
       </body>
     </html>
