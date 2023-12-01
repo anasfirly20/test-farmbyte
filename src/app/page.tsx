@@ -7,17 +7,29 @@ import Image from "next/image";
 
 import { getCurrentWeather } from "../../api/routes/openweather";
 import { useState } from "react";
+import { TGETCurrentWeather } from "@/types/types";
 
 export default function Home() {
-  const [data, setData] = useState();
+  const [data, setData] = useState<TGETCurrentWeather>();
+  const [searchString, setSearchString] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const getWeather = async () => {
+  const getWeather = async (string: string) => {
     try {
-      const res = await getCurrentWeather("Jakarta");
+      setIsLoading(true);
+      const res = await getCurrentWeather(string);
       setData(res);
       console.log(res);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
+    }
+  };
+
+  const handleSearch = () => {
+    if (searchString) {
+      getWeather(searchString);
     }
   };
 
@@ -31,14 +43,22 @@ export default function Home() {
           size="sm"
           radius="md"
           className="w-full lg:w-[89%]"
+          onChange={(e) => setSearchString(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleSearch();
+            }
+          }}
         />
         <Button
           color="primary"
           size="lg"
           radius="md"
           className="w-full lg:w-[10%] bg-sky-600"
+          isLoading={isLoading}
+          isDisabled={searchString ? false : true}
           onClick={() => {
-            getWeather();
+            handleSearch();
           }}
         >
           Search
@@ -51,10 +71,11 @@ export default function Home() {
         </div>
         <p className="text-gray-400">Thursday 8:18 AM</p>
         <h2 className="flex items-start text-sky-600 my-5">
-          45 <span className="text-sm">&deg;C</span>
+          {data?.main?.temp && Math.floor(data?.main?.temp)}{" "}
+          <span className="text-sm">&deg;C</span>
         </h2>
-        <p className="text-gray-500">Wind: 1 mph</p>
-        <p className="text-gray-500">Humidity: 91%</p>
+        <p className="text-gray-500">Wind: {data?.wind?.speed} mph</p>
+        <p className="text-gray-500">Humidity: {data?.main?.humidity}%</p>
       </section>
       <hr className="border-b my-6" />
       <section className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-y-20 mt-10">
