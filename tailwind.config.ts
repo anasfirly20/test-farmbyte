@@ -10,9 +10,6 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      colors: {
-        "sky-blue": "#4582b4",
-      },
       padding: {
         shorter4: "1vw",
         shorter3: "2vw",
@@ -55,20 +52,6 @@ const config: Config = {
     },
   },
   darkMode: "class",
-  plugins: [
-    nextui({
-      themes: {
-        dark: {
-          colors: {
-            primary: {
-              DEFAULT: "#BEF264",
-              foreground: "#000000",
-            },
-            focus: "#BEF264",
-          },
-        },
-      },
-    }),
-  ],
+  plugins: [nextui()],
 };
 export default config;
