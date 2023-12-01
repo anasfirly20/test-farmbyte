@@ -155,3 +155,7 @@ type TWind = {
   deg: number;
   gust: number;
 };
+
+type TIconMapping = {
+  [key: string]: string;
+};

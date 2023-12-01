@@ -1,3 +1,5 @@
+import { TIconMapping } from "@/types/types";
+
 // Day
 import day1 from "../../../public/animated/01d.svg";
 import day2 from "../../../public/animated/02d.svg";
@@ -19,10 +21,6 @@ import night6 from "../../../public/animated/10n.svg";
 import night7 from "../../../public/animated/11n.svg";
 import night8 from "../../../public/animated/13n.svg";
 import night9 from "../../../public/animated/50n.svg";
-
-type TIconMapping = {
-  [key: string]: string;
-};
 
 export const getWeatherIcon = (iconCode: string) => {
   const weatherIconMappings: TIconMapping = {
