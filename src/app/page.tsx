@@ -3,6 +3,7 @@
 // Next ui
 import { Input } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
+import { Skeleton } from "@nextui-org/skeleton";
 
 // Components
 import Empty from "@/components/Empty";
@@ -70,6 +71,7 @@ export default function Home() {
     <section className="py-longer px-longer lg:h-[95vh]">
       <section className="flex items-center justify-between flex-wrap gap-y-3">
         <Input
+          isClearable
           type="text"
           placeholder="Enter a city..."
           variant="bordered"
@@ -99,58 +101,82 @@ export default function Home() {
         <>
           <section>
             <div className="flex items-center mt-6">
-              <Image
-                src={
-                  dataCurrentWeather?.weather?.[0]?.icon &&
-                  getWeatherIcon(dataCurrentWeather?.weather?.[0]?.icon)
-                }
-                alt="snowy"
-                width={120}
-                height={120}
-              />
-              <h1 className="text-sky-600">{dataCurrentWeather?.name}</h1>
+              <Skeleton isLoaded={!isLoading} className="w-fit">
+                <Image
+                  src={
+                    dataCurrentWeather?.weather?.[0]?.icon &&
+                    getWeatherIcon(dataCurrentWeather?.weather?.[0]?.icon)
+                  }
+                  alt="snowy"
+                  width={120}
+                  height={120}
+                />
+              </Skeleton>
+              <Skeleton isLoaded={!isLoading} className="w-fit">
+                <h1 className="text-sky-600">{dataCurrentWeather?.name}</h1>
+              </Skeleton>
             </div>
-            <p className="text-gray-400">
-              {dataCurrentWeather?.dt &&
-                moment.unix(dataCurrentWeather?.dt).format("dddd, D MMMM YYYY")}
-            </p>
-            <h2 className="flex items-start text-sky-600 mt-4">
-              {dataCurrentWeather?.main?.temp &&
-                Math.floor(dataCurrentWeather?.main?.temp)}{" "}
-              <span className="text-sm">&deg;C</span>
-            </h2>
-            <p className="text-base text-gray-500">
-              {dataCurrentWeather?.weather?.[0]?.main}
-            </p>
-            <p className="text-base text-gray-500">
-              {dataCurrentWeather?.weather?.[0]?.description}
-            </p>
-            <p className="text-gray-500 mt-4">
-              Wind: {dataCurrentWeather?.wind?.speed} m/s
-            </p>
-            <p className="text-gray-500">
-              Humidity: {dataCurrentWeather?.main?.humidity}%
-            </p>
+            <Skeleton isLoaded={!isLoading} className="w-fit">
+              <p className="text-gray-400">
+                {dataCurrentWeather?.dt &&
+                  moment
+                    .unix(dataCurrentWeather?.dt)
+                    .format("dddd, D MMMM YYYY")}
+              </p>
+            </Skeleton>
+            <Skeleton isLoaded={!isLoading} className="w-fit">
+              <h2 className="flex items-start text-sky-600 mt-4">
+                {dataCurrentWeather?.main?.temp &&
+                  Math.floor(dataCurrentWeather?.main?.temp)}{" "}
+                <span className="text-sm">&deg;C</span>
+              </h2>
+            </Skeleton>
+            <Skeleton isLoaded={!isLoading} className="w-fit">
+              <p className="text-base text-gray-500">
+                {dataCurrentWeather?.weather?.[0]?.main}
+              </p>
+            </Skeleton>
+            <Skeleton isLoaded={!isLoading} className="w-fit">
+              <p className="text-base text-gray-500">
+                {dataCurrentWeather?.weather?.[0]?.description}
+              </p>
+            </Skeleton>
+            <Skeleton isLoaded={!isLoading} className="w-fit">
+              <p className="text-gray-500 mt-4">
+                Wind: {dataCurrentWeather?.wind?.speed} m/s
+              </p>
+            </Skeleton>
+            <Skeleton isLoaded={!isLoading} className="w-fit">
+              <p className="text-gray-500">
+                Humidity: {dataCurrentWeather?.main?.humidity}%
+              </p>
+            </Skeleton>
           </section>
           <hr className="border-b my-6" />
           <section className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-y-20 mt-10">
             <div className="flex flex-col justify-center items-center gap-1">
-              <h5>Now</h5>
-              <Image
-                priority
-                src={
-                  dataCurrentWeather?.weather?.[0]?.icon &&
-                  getWeatherIcon(dataCurrentWeather?.weather?.[0]?.icon)
-                }
-                alt="Weather's icon"
-                width={60}
-                height={60}
-              />
-              <p>
-                {dataCurrentWeather?.main?.temp &&
-                  Math.floor(dataCurrentWeather?.main?.temp)}
-                &deg;
-              </p>
+              <Skeleton isLoaded={!isLoading} className="w-fit">
+                <h5>Now</h5>
+              </Skeleton>
+              <Skeleton isLoaded={!isLoading} className="w-fit">
+                <Image
+                  priority
+                  src={
+                    dataCurrentWeather?.weather?.[0]?.icon &&
+                    getWeatherIcon(dataCurrentWeather?.weather?.[0]?.icon)
+                  }
+                  alt="Weather's icon"
+                  width={60}
+                  height={60}
+                />
+              </Skeleton>
+              <Skeleton isLoaded={!isLoading} className="w-fit">
+                <p>
+                  {dataCurrentWeather?.main?.temp &&
+                    Math.floor(dataCurrentWeather?.main?.temp)}
+                  &deg;
+                </p>
+              </Skeleton>
             </div>
             {dataForecast?.map((data, index: number) => {
               return (
@@ -158,18 +184,26 @@ export default function Home() {
                   key={index}
                   className="flex flex-col justify-center items-center gap-1"
                 >
-                  <h5>{data?.dt && moment.unix(data?.dt).format("HH:mm")}</h5>
-                  <Image
-                    priority
-                    src={
-                      data?.weather?.[0]?.icon &&
-                      getWeatherIcon(data?.weather?.[0]?.icon)
-                    }
-                    alt="Weather's icon"
-                    width={60}
-                    height={60}
-                  />
-                  <p>{data?.main?.temp && Math.floor(data?.main?.temp)}&deg;</p>
+                  <Skeleton isLoaded={!isLoading} className="w-fit">
+                    <h5>{data?.dt && moment.unix(data?.dt).format("HH:mm")}</h5>
+                  </Skeleton>
+                  <Skeleton isLoaded={!isLoading} className="w-fit">
+                    <Image
+                      priority
+                      src={
+                        data?.weather?.[0]?.icon &&
+                        getWeatherIcon(data?.weather?.[0]?.icon)
+                      }
+                      alt="Weather's icon"
+                      width={60}
+                      height={60}
+                    />
+                  </Skeleton>
+                  <Skeleton isLoaded={!isLoading} className="w-fit">
+                    <p>
+                      {data?.main?.temp && Math.floor(data?.main?.temp)}&deg;
+                    </p>
+                  </Skeleton>
                 </div>
               );
             })}
