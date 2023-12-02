@@ -35,6 +35,7 @@ export default function Home() {
       setDataCurrentWeather(res);
       getForecast(res?.id);
       setIsLoading(false);
+      setIsError(false);
     } catch (error) {
       console.log(error);
       setIsLoading(false);
@@ -69,7 +70,6 @@ export default function Home() {
     <section className="py-longer px-longer lg:h-[95vh]">
       <section className="flex items-center justify-between flex-wrap gap-y-3">
         <Input
-          isClearable
           type="text"
           placeholder="Enter a city..."
           variant="bordered"
