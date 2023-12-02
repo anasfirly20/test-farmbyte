@@ -39,7 +39,7 @@ export default function CurrentWeather({
           {dataCurrentWeather?.dt &&
             moment
               .unix(dataCurrentWeather?.dt)
-              .format("dddd, D MMMM YYYY, HH.mm")}
+              .format("dddd, D MMMM YYYY, HH:mm")}
         </p>
       </Skeleton>
       <Skeleton isLoaded={!isLoading} className="w-fit">

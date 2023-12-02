@@ -1,5 +1,5 @@
-import { TCoord, TGETCurrentWeather, TGETForecast } from "@/types/types";
 import api from "../api";
+import { TGETCurrentWeather, TGETForecast } from "@/types/types";
 
 export const getCurrentWeather = async (
   city: string
