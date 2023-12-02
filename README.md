@@ -22,5 +22,5 @@ WeatherNow is a user-friendly web application designed to provide real-time weat
 
 ## API KEY
 
-1. Register an account from the OpenWeatherMap's website (https://openweathermap.org/)
+1. Register an account from the [OpenWeatherMap's website](https://openweathermap.org/){:target="\_blank"}
 2. Login to your account, on the top right dropdown, go to `My API keys` to generate the `API KEY`
