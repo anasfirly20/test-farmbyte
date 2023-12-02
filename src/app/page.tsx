@@ -7,6 +7,7 @@ import { Skeleton } from "@nextui-org/skeleton";
 
 // Components
 import Empty from "@/components/Empty";
+import Error from "@/components/Error";
 
 // Api
 import {
@@ -20,7 +21,6 @@ import moment from "moment";
 import Image from "next/image";
 import { getWeatherIcon } from "@/lib/helpers/utils";
 import { TGETCurrentWeather, TList } from "@/types/types";
-import Error from "@/components/Error";
 
 export default function Home() {
   const [dataCurrentWeather, setDataCurrentWeather] =

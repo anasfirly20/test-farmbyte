@@ -13,6 +13,19 @@ WeatherNow is a user-friendly web application designed to provide real-time weat
 - User-friendly Interface: Intuitive design for a seamless user experience.
 - Global Coverage: Retrieve weather data for cities worldwide.
 
+## Tech Stack
+
+- **Next.js:** v14.0.3
+- **React:** v18
+- **Tailwind CSS:** v3.3.0
+- **Framer Motion:** v10.16.9
+- **Axios:** v1.6.2
+- **Moment.js:** v2.29.4
+- **TypeScript:** v5
+- **Eslint:** v8
+- **PostCSS:** v8
+- **Autoprefixer:** v10.0.1
+
 ## Setup Instructions
 
 1. Copy the HTTPS or the SSH and then open your terminal to clone it. Example: `git clone "the HTTPS / SSH you copied`.
