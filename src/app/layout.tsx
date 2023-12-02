@@ -9,8 +9,8 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Weather Application",
-  description: "Weather Information Dashboard",
+  title: "WeatherNow",
+  description: "WeatherNow - Weather Information Dashboard",
 };
 
 export default function RootLayout({

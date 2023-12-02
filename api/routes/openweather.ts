@@ -18,10 +18,3 @@ export const getForecastWeather = async (
   );
   return res.data;
 };
-
-export const getForecastWeather2 = async (lat: number, lon: number) => {
-  const res = await api.get(
-    `/forecast/daily?lat=${lat}&lon=${lon}&cnt={cnt}&appid=${process.env.NEXT_PUBLIC_API_KEY}`
-  );
-  return res.data;
-};

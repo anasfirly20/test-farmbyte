@@ -121,7 +121,7 @@ export default function Home() {
                 {dataCurrentWeather?.dt &&
                   moment
                     .unix(dataCurrentWeather?.dt)
-                    .format("dddd, D MMMM YYYY")}
+                    .format("dddd, D MMMM YYYY, HH.mm")}
               </p>
             </Skeleton>
             <Skeleton isLoaded={!isLoading} className="w-fit">
