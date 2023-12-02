@@ -1,9 +1,11 @@
+// Next ui
+import { Skeleton } from "@nextui-org/skeleton";
+
+// Miscellaneous
 import { getWeatherIcon } from "@/lib/helpers/utils";
 import { TGETCurrentWeather, TList } from "@/types/types";
-import { Skeleton } from "@nextui-org/react";
 import moment from "moment";
 import Image from "next/image";
-import React from "react";
 
 type TProps = {
   isLoading: boolean;

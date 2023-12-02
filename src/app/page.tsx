@@ -3,11 +3,12 @@
 // Next ui
 import { Input } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
-import { Skeleton } from "@nextui-org/skeleton";
 
 // Components
 import Empty from "@/components/Empty";
 import Error from "@/components/Error";
+import Forecast from "@/components/Home/Forecast";
+import CurrentWeather from "@/components/Home/CurrentWeather";
 
 // Api
 import {
@@ -17,11 +18,7 @@ import {
 
 // Miscellaneous
 import { useState } from "react";
-import moment from "moment";
-import Image from "next/image";
-import { getWeatherIcon } from "@/lib/helpers/utils";
 import { TGETCurrentWeather, TList } from "@/types/types";
-import Forecast from "@/components/Home/Forecast";
 
 export default function Home() {
   const [dataCurrentWeather, setDataCurrentWeather] =
@@ -98,59 +95,10 @@ export default function Home() {
         <Error />
       ) : dataCurrentWeather ? (
         <>
-          <section>
-            <div className="flex items-center mt-6">
-              <Skeleton isLoaded={!isLoading} className="w-fit">
-                <Image
-                  src={
-                    dataCurrentWeather?.weather?.[0]?.icon &&
-                    getWeatherIcon(dataCurrentWeather?.weather?.[0]?.icon)
-                  }
-                  alt="snowy"
-                  width={120}
-                  height={120}
-                />
-              </Skeleton>
-              <Skeleton isLoaded={!isLoading} className="w-fit">
-                <h1 className="text-sky-600">{dataCurrentWeather?.name}</h1>
-              </Skeleton>
-            </div>
-            <Skeleton isLoaded={!isLoading} className="w-fit">
-              <p className="text-gray-400">
-                {dataCurrentWeather?.dt &&
-                  moment
-                    .unix(dataCurrentWeather?.dt)
-                    .format("dddd, D MMMM YYYY, HH.mm")}
-              </p>
-            </Skeleton>
-            <Skeleton isLoaded={!isLoading} className="w-fit">
-              <h2 className="flex items-start text-sky-600 mt-4">
-                {dataCurrentWeather?.main?.temp &&
-                  Math.floor(dataCurrentWeather?.main?.temp)}{" "}
-                <span className="text-sm">&deg;C</span>
-              </h2>
-            </Skeleton>
-            <Skeleton isLoaded={!isLoading} className="w-fit">
-              <p className="text-base text-gray-500">
-                {dataCurrentWeather?.weather?.[0]?.main}
-              </p>
-            </Skeleton>
-            <Skeleton isLoaded={!isLoading} className="w-fit">
-              <p className="text-base text-gray-500">
-                {dataCurrentWeather?.weather?.[0]?.description}
-              </p>
-            </Skeleton>
-            <Skeleton isLoaded={!isLoading} className="w-fit">
-              <p className="text-gray-500 mt-4">
-                Wind: {dataCurrentWeather?.wind?.speed} m/s
-              </p>
-            </Skeleton>
-            <Skeleton isLoaded={!isLoading} className="w-fit">
-              <p className="text-gray-500">
-                Humidity: {dataCurrentWeather?.main?.humidity}%
-              </p>
-            </Skeleton>
-          </section>
+          <CurrentWeather
+            isLoading={isLoading}
+            dataCurrentWeather={dataCurrentWeather}
+          />
           <hr className="border-b my-6" />
           <Forecast
             isLoading={isLoading}
