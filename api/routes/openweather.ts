@@ -5,7 +5,7 @@ export const getCurrentWeather = async (
   city: string
 ): Promise<TGETCurrentWeather> => {
   const res = await api.get(
-    `/weather?q=${city}&appid=${process.env.NEXT_PUBLIC_API_KEY}&units=metric`
+    `/weather?q=${city}&appsid=${process.env.NEXT_PUBLIC_API_KEY}&units=metric`
   );
   return res.data;
 };
