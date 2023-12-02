@@ -1,4 +1,4 @@
-# Weather Application
+# WeatherNow – Explore Real-Time City Weather and 3-Hour Forecasts
 
 ## Project Details
 
@@ -22,5 +22,5 @@ WeatherNow is a user-friendly web application designed to provide real-time weat
 
 ## API KEY
 
-1. Register an account from the <a href="https://openweathermap.org/" target="_blank">OpenWeatherMap's website</a>
-2. Login to your account, on the top right dropdown, go to `My API keys` to generate the `API KEY`
+1. Register an account from the <a href="https://openweathermap.org/" target="_blank">OpenWeatherMap's website</a>.
+2. Login to your account, on the top right dropdown, go to `My API keys` to generate the `API KEY`.
